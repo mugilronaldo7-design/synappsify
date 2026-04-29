@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Share2, Users2, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 
 export default function CTASection() {
   const [hovered, setHovered] = useState(false);
@@ -205,27 +206,26 @@ export default function CTASection() {
             ))}
           </div>
 
-          {/* Right — social icons */}
-          <div className="flex items-center gap-4">
-            {[
-              { href: "https://instagram.com/synappsify", Icon: Share2, label: "Instagram" },
-              { href: "https://wa.me/919999999999",       Icon: MessageCircle, label: "WhatsApp" },
-              { href: "https://linkedin.com/company/synappsify", Icon: Users2, label: "LinkedIn" },
-            ].map(({ href, Icon, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="transition-colors duration-150"
-                style={{ color: "rgba(255,255,255,0.45)" }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.9)")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.45)")}
-              >
-                <Icon size={17} />
-              </a>
-            ))}
+          {/* Right — social icons (Pro look) */}
+          <div className="flex items-center gap-3 ml-4">
+            <a
+              href="https://wa.me/919999999999"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition duration-300"
+            >
+              <FaWhatsapp className="text-white text-2xl" />
+            </a>
+            <a
+              href="https://instagram.com/synappsify"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition duration-300"
+            >
+              <FaInstagram className="text-white text-2xl" />
+            </a>
           </div>
         </div>
       </div>

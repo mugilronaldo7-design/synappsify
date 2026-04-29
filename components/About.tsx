@@ -298,27 +298,30 @@ export default function About() {
                 order: 1,
                 transform: `translate3d(${mouse.x * 0.5}px, ${mouse.y * 0.5}px, 0)`,
                 transition: "transform 0.25s ease-out",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               <div
-                className="group relative w-full rounded-[20px] overflow-hidden transition-all duration-300 hover:scale-[1.02]"
+                className="group relative w-full mx-auto rounded-[16px] overflow-hidden transition-all duration-300 hover:scale-[1.02]"
                 style={{
-                  height: "520px",
-                  background: "#ffffff",
+                  maxWidth: "390px", // Frame hugs image width
+                  background: "transparent",
+                  padding: "0",
                   boxShadow:
                     "0 0 0 1px rgba(255,255,255,0.1), 0 20px 60px rgba(124,58,237,0.4)",
                   border: "1px solid rgba(255,255,255,0.12)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                {/* Image — full portrait, fixed card height, no side bars visible */}
-                <Image
-                  src="/images/WhatsApp Image 2026-04-28 at 4.47.44 PM.jpeg"
+                {/* Image — exactly 100% width, natural height perfectly hugged by frame */}
+                <img
+                  src="/images/karmugil.jpeg"
                   alt="Karmugilan — Founder of Synappsify"
-                  fill
-                  className="object-contain"
-                  style={{ objectPosition: "center center" }}
-                  sizes="(max-width: 768px) 100vw, 560px"
-                  priority
+                  className="w-full h-auto block"
                 />
 
                 {/* Bottom gradient */}
@@ -326,8 +329,7 @@ export default function About() {
                   className="absolute bottom-0 left-0 right-0 pointer-events-none"
                   style={{
                     height: "160px",
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
+                    background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)",
                     zIndex: 2,
                   }}
                 />
