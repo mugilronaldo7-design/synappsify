@@ -1,17 +1,45 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Star } from "lucide-react";
 
-const testimonials = [
-  { name: "Rahul Mehta", role: "Fitness Brand Owner", review: "Synappsify completely transformed our online presence. The design looks premium and conversions improved instantly.", initials: "RM", color: "#7C3AED" },
-  { name: "Ankit Sharma", role: "Construction Firm", review: "Smooth process, fast delivery, and extremely professional. Highly recommended for serious businesses.", initials: "AS", color: "#2563EB" },
-  { name: "Priya Verma", role: "Legal Consultant", review: "Clean design, strong branding, and everything works flawlessly across devices.", initials: "PV", color: "#059669" },
-  { name: "Karthik R", role: "Startup Founder", review: "They understood our vision and built exactly what we needed. Great communication and execution.", initials: "KR", color: "#D97706" },
+const initialTestimonials = [
+  { name: "Rahul Mehta", role: "Fitness Brand Owner", review: "Synappsify completely transformed our online presence. The design looks premium and conversions improved instantly.", initials: "RM", color: "#7C3AED", rating: 5 },
+  { name: "Ankit Sharma", role: "Construction Firm", review: "Smooth process, fast delivery, and extremely professional. Highly recommended for serious businesses.", initials: "AS", color: "#2563EB", rating: 5 },
+  { name: "Priya Verma", role: "Legal Consultant", review: "Clean design, strong branding, and everything works flawlessly across devices.", initials: "PV", color: "#059669", rating: 5 },
+  { name: "Karthik R", role: "Startup Founder", review: "They understood our vision and built exactly what we needed. Great communication and execution.", initials: "KR", color: "#D97706", rating: 5 },
 ];
+
+const colors = ["#7C3AED", "#2563EB", "#059669", "#D97706", "#DB2777"];
 
 export default function ClientTestimonials() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [testimonials, setTestimonials] = useState<any[]>(initialTestimonials);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const { getFirebaseDb } = await import("@/lib/firebase");
+        const { collection, getDocs, query, orderBy } = await import("firebase/firestore");
+        const db = getFirebaseDb();
+        const q = query(collection(db, "testimonials"), orderBy("createdAt", "asc"));
+        const querySnapshot = await getDocs(q);
+        
+        if (!querySnapshot.empty) {
+          const fetchedTestimonials = querySnapshot.docs.map((doc, idx) => ({
+            id: doc.id,
+            ...doc.data(),
+            color: colors[idx % colors.length], // Assign a color based on index
+          }));
+          setTestimonials(fetchedTestimonials);
+        }
+      } catch (e) {
+        console.error("Failed to fetch testimonials:", e);
+      }
+    };
+    
+    fetchTestimonials();
+  }, []);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
@@ -121,7 +149,9 @@ export default function ClientTestimonials() {
               >
                 {/* Stars */}
                 <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
-                  {[1,2,3,4,5].map((s) => <Star key={s} size={15} fill={t.color} stroke="none" />)}
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <Star key={s} size={15} fill={s < (t.rating || 5) ? t.color : "#E5E7EB"} stroke="none" />
+                  ))}
                 </div>
 
                 {/* Review */}
@@ -129,7 +159,7 @@ export default function ClientTestimonials() {
                   className="font-[family-name:var(--font-inter)]"
                   style={{ fontSize: "14px", color: "#444", lineHeight: 1.7, flex: 1, marginBottom: "20px" }}
                 >
-                  &ldquo;{t.review}&rdquo;
+                  &ldquo;{t.feedback || t.review}&rdquo;
                 </p>
 
                 {/* Avatar */}

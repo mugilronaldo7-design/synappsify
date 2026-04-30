@@ -1,5 +1,6 @@
 import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getFirestore, Firestore } from "firebase/firestore";
+import { getAuth, Auth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,6 +13,7 @@ const firebaseConfig = {
 
 let app: FirebaseApp | null = null;
 let db: Firestore | null = null;
+let auth: Auth | null = null;
 
 /**
  * Lazily initialise Firebase only on the client side.
@@ -31,6 +33,22 @@ export function getFirebaseDb(): Firestore {
   }
 
   return db;
+}
+
+export function getFirebaseAuth(): Auth {
+  if (typeof window === "undefined") {
+    throw new Error("Firebase Auth must only be used on the client side.");
+  }
+
+  if (!app) {
+    app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+  }
+
+  if (!auth) {
+    auth = getAuth(app);
+  }
+
+  return auth;
 }
 
 export default app;

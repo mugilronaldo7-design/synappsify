@@ -1,31 +1,65 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 export default function FeaturedWork() {
-  const projects = [
+  const initialProjects = [
     {
-      id: 1,
+      id: "1",
       title: "Muscle Possible",
       description: "Premium fitness brand focused on high-quality protein products and strong digital presence.",
       imageBg: "linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)",
       category: "E-COMMERCE",
+      imageUrl: "",
+      link: "",
     },
     {
-      id: 2,
+      id: "2",
       title: "BuildCraft Constructions",
       description: "Modern website for a construction firm showcasing projects and services.",
       imageBg: "linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%)",
       category: "CORPORATE",
+      imageUrl: "",
+      link: "",
     },
     {
-      id: 3,
+      id: "3",
       title: "Elite Legal Services",
       description: "Professional website for a law firm with clean UI and trust-focused design.",
       imageBg: "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)",
       category: "LEGAL",
+      imageUrl: "",
+      link: "",
     },
   ];
+
+  const [projects, setProjects] = useState<any[]>(initialProjects);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const { getFirebaseDb } = await import("@/lib/firebase");
+        const { collection, getDocs, query, orderBy } = await import("firebase/firestore");
+        const db = getFirebaseDb();
+        const q = query(collection(db, "portfolio"), orderBy("createdAt", "asc"));
+        const querySnapshot = await getDocs(q);
+        
+        if (!querySnapshot.empty) {
+          const fetchedProjects = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+            imageBg: "linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)", // Default background if no image
+          }));
+          setProjects(fetchedProjects);
+        }
+      } catch (e) {
+        console.error("Failed to fetch projects:", e);
+      }
+    };
+    
+    fetchProjects();
+  }, []);
 
   return (
     <section
@@ -93,6 +127,9 @@ export default function FeaturedWork() {
               <div
                 key={project.id}
                 className="group"
+                onClick={() => {
+                  if (project.link) window.open(project.link, "_blank");
+                }}
                 style={{
                   flex: "0 0 auto",
                   width: "min(320px, 82vw)",
@@ -103,27 +140,36 @@ export default function FeaturedWork() {
                   background: "#fff",
                   overflow: "hidden",
                   transition: "transform 0.25s ease",
-                  cursor: "pointer",
+                  cursor: project.link ? "pointer" : "default",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-6px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
                 {/* Image area */}
-                <div style={{ height: "200px", position: "relative", background: project.imageBg }}>
+                <div style={{ 
+                  height: "200px", 
+                  position: "relative", 
+                  background: project.imageBg,
+                  backgroundImage: project.imageUrl ? `url(${project.imageUrl})` : undefined,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center"
+                }}>
                   <div style={{ position: "absolute", top: "16px", left: "16px" }}>
                     <span
                       className="font-[family-name:var(--font-inter)]"
                       style={{ padding: "6px 14px", background: "#fff", borderRadius: "999px", fontSize: "10px", fontWeight: 700, letterSpacing: "0.06em", color: "#0A0A0A", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}
                     >
-                      {project.category}
+                      {project.category || "PROJECT"}
                     </span>
                   </div>
-                  <div
-                    className="opacity-0 group-hover:opacity-100"
-                    style={{ position: "absolute", bottom: "16px", right: "16px", width: "44px", height: "44px", background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(0,0,0,0.15)", transition: "all 0.25s ease" }}
-                  >
-                    <ArrowUpRight size={18} color="#0A0A0A" />
-                  </div>
+                  {project.link && (
+                    <div
+                      className="opacity-0 group-hover:opacity-100"
+                      style={{ position: "absolute", bottom: "16px", right: "16px", width: "44px", height: "44px", background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(0,0,0,0.15)", transition: "all 0.25s ease" }}
+                    >
+                      <ArrowUpRight size={18} color="#0A0A0A" />
+                    </div>
+                  )}
                 </div>
 
                 {/* Content */}
