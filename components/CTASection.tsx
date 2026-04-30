@@ -53,7 +53,13 @@ export default function CTASection() {
         </div>
 
         {/* Content — single inner padding */}
-        <div className="relative p-[clamp(24px,5vw,64px)]" style={{ zIndex: 1 }}>
+        <div
+          className="relative"
+          style={{
+            padding: "clamp(28px, 5vw, 64px)",
+            zIndex: 1,
+          }}
+        >
           <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6">
           {/* LEFT */}
           <div className="flex-1 max-w-xl">

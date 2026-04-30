@@ -39,7 +39,8 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className="fixed top-5 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] md:w-[calc(100%-40px)] max-w-[1200px] z-50 transition-all duration-300 bg-white rounded-[28px] shadow-[0_8px_30px_rgba(0,0,0,0.08)] px-5 md:px-12 py-2 flex justify-between items-center"
+        className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[calc(100%-48px)] max-w-[1280px] z-50 transition-all duration-300 bg-white rounded-[28px] shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex justify-between items-center"
+        style={{ padding: "10px 10px 10px 24px" }}
       >
         {/* Logo */}
         <Link
@@ -74,7 +75,7 @@ export default function Navbar() {
               fontWeight: "600",
               background: "#000000",
               color: "#FFFFFF",
-              borderRadius: "999px",
+              borderRadius: "10px",
               boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
             }}
           >
@@ -117,7 +118,7 @@ export default function Navbar() {
             fontWeight: "600",
             background: "#000000",
             color: "#FFFFFF",
-            borderRadius: "999px",
+            borderRadius: "10px",
             boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
           }}
         >
