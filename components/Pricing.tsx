@@ -62,11 +62,7 @@ export default function Pricing() {
 
   return (
     <section 
-      className="relative w-full bg-transparent flex justify-center items-center px-4 sm:px-6 lg:px-8"
-      style={{
-        marginTop: "120px",
-        marginBottom: "80px",
-      }}
+      className="relative w-full bg-transparent flex justify-center items-center px-4 sm:px-6 lg:px-8 mt-[60px] mb-[40px] md:mt-[120px] md:mb-[80px]"
     >
       {/* ONE large parent container (card) perfectly centered */}
       <div
@@ -76,9 +72,9 @@ export default function Pricing() {
           borderRadius: "24px",
           boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 5px 20px rgba(0,0,0,0.05)",
           border: "1px solid rgba(0,0,0,0.05)",
-          padding: "60px 64px",
         }}
       >
+        <div className="p-6 sm:p-8 md:p-[60px_64px]">
         {/* Header Area */}
         <div
           className="flex flex-col md:flex-row md:items-center justify-between"
@@ -112,10 +108,9 @@ export default function Pricing() {
               style={{
                 background: plan.gradient,
                 borderRadius: "16px",
-                padding: "34px",
+                padding: "24px",
                 boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
                 border: "1px solid rgba(0,0,0,0.04)",
-                minHeight: "460px",
               }}
             >
               {plan.isPopular && (
@@ -142,13 +137,13 @@ export default function Pricing() {
                 </div>
 
                 <div
-                  className="font-[family-name:var(--font-syne)] font-bold text-5xl tracking-tight"
-                  style={{ color: "#0A0A0A", marginBottom: "28px" }}
+                  className="font-[family-name:var(--font-syne)] font-bold text-4xl md:text-5xl tracking-tight"
+                  style={{ color: "#0A0A0A", marginBottom: "20px" }}
                 >
                   {plan.price}
                 </div>
 
-                <ul className="space-y-4 flex-grow" style={{ marginBottom: "32px" }}>
+                <ul className="space-y-3 md:space-y-4 flex-grow" style={{ marginBottom: "24px" }}>
                   {plan.features.map((feature, idx) => (
                     <li
                       key={idx}
@@ -189,6 +184,7 @@ export default function Pricing() {
               </button>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>

@@ -60,8 +60,7 @@ export default function FAQ() {
 
   return (
     <section
-      className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8"
-      style={{ margin: "120px auto" }}
+      className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8 my-[60px] md:my-[120px]"
     >
       <div
         className="w-full bg-white"
@@ -70,9 +69,9 @@ export default function FAQ() {
           borderRadius: "28px",
           boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 5px 20px rgba(0,0,0,0.05)",
           border: "1px solid rgba(0,0,0,0.05)",
-          padding: "60px",
         }}
       >
+        <div className="p-6 sm:p-8 md:p-[60px]">
         {/* ── Header ── */}
         <div
           className="flex flex-col md:flex-row md:items-center justify-between"
@@ -164,6 +163,7 @@ export default function FAQ() {
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </section>

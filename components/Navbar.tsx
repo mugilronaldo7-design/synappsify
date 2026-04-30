@@ -39,16 +39,7 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className="fixed top-5 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-[1200px] z-50 transition-all duration-300 bg-white rounded-[28px] shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingLeft: "48px",
-          paddingRight: "48px",
-          paddingTop: "8px",
-          paddingBottom: "8px",
-        }}
+        className="fixed top-5 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] md:w-[calc(100%-40px)] max-w-[1200px] z-50 transition-all duration-300 bg-white rounded-[28px] shadow-[0_8px_30px_rgba(0,0,0,0.08)] px-5 md:px-12 py-2 flex justify-between items-center"
       >
         {/* Logo */}
         <Link

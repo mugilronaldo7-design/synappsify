@@ -163,3 +163,11 @@ select option {
     opacity: 0.3;
   }
 }
+
+/* ═══════════ MOBILE RESPONSIVENESS (≤768px) ═══════════ */
+@media (max-width: 768px) {
+  /* Scroll indicator text update for mobile */
+  .scroll-indicator-text::after {
+    content: "Swipe →";
+  }
+}

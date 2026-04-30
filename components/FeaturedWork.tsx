@@ -41,9 +41,9 @@ export default function FeaturedWork() {
           borderRadius: "24px",
           boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 5px 20px rgba(0,0,0,0.05)",
           border: "1px solid rgba(0,0,0,0.05)",
-          padding: "48px 56px",
         }}
       >
+        <div className="p-6 sm:p-8 md:p-[48px_56px]">
         {/* Header Area */}
         <div
           className="flex flex-col md:flex-row md:items-center justify-between"
@@ -94,7 +94,7 @@ export default function FeaturedWork() {
                 className="group bg-[#FFFFFF] transition-all duration-300 hover:-translate-y-[6px] cursor-pointer"
                 style={{
                   flex: "0 0 auto",
-                  width: "320px",
+                  width: "clamp(260px, 85vw, 320px)",
                   scrollSnapAlign: "start",
                   borderRadius: "16px",
                   boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
@@ -174,6 +174,7 @@ export default function FeaturedWork() {
               →
             </span>
           </div>
+        </div>
         </div>
       </div>
     </section>

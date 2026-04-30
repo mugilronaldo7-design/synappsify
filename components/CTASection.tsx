@@ -47,8 +47,9 @@ export default function CTASection() {
         {/* Content */}
         <div
           className="relative flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6"
-          style={{ padding: "56px 60px", zIndex: 1 }}
+          style={{ zIndex: 1 }}
         >
+          <div className="w-full px-6 sm:px-8 md:px-[60px] py-10 md:py-[56px] flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6">
           {/* LEFT */}
           <div className="flex-1 max-w-xl">
             {/* Tag */}
@@ -167,6 +168,7 @@ export default function CTASection() {
               </span>
             </div>
           </div>
+          </div>
         </div>{/* ── end content row ── */}
 
         {/* ── Minimal footer bar inside the card ── */}
@@ -175,11 +177,11 @@ export default function CTASection() {
           style={{
             zIndex: 1,
             borderTop: "1px solid rgba(255,255,255,0.08)",
-            margin: "0 60px",
             paddingTop: "20px",
             paddingBottom: "28px",
           }}
         >
+          <div className="mx-6 sm:mx-8 md:mx-[60px] w-full flex flex-wrap items-center justify-between gap-4">
           {/* Left — logo + links */}
           <div
             className="flex flex-wrap items-center gap-x-4 gap-y-1 font-[family-name:var(--font-inter)] text-sm"
@@ -227,6 +229,7 @@ export default function CTASection() {
               <FaInstagram className="text-white text-2xl" />
             </a>
           </div>
+          </div>{/* end inner footer wrapper */}
         </div>
       </div>
     </section>

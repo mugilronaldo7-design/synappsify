@@ -72,8 +72,7 @@ export default function About() {
 
       <section
         id="about"
-        className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8"
-        style={{ margin: "120px auto" }}
+        className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8 my-[60px] md:my-[120px]"
       >
         {/* ════════════ OUTER CARD ════════════ */}
         <div
@@ -88,9 +87,9 @@ export default function About() {
             background: "linear-gradient(135deg, #5b21b6 0%, #7c3aed 45%, #a78bfa 100%)",
             boxShadow:
               "0 25px 80px rgba(109,40,217,0.35), 0 8px 30px rgba(109,40,217,0.18), inset 0 1px 1px rgba(255,255,255,0.12)",
-            padding: "56px 60px",
           }}
         >
+          <div className="p-6 sm:p-8 md:p-[56px_60px]">
           {/* ── Noise / grain texture ── */}
           <div
             className="absolute inset-0 pointer-events-none"
@@ -384,6 +383,7 @@ export default function About() {
               </div>
             </div>
           </div>
+          </div>{/* end inner padding */}
         </div>
       </section>
     </>

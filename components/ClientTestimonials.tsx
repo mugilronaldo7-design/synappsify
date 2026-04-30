@@ -62,8 +62,7 @@ export default function ClientTestimonials() {
 
   return (
     <section
-      className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8"
-      style={{ margin: "120px auto" }}
+      className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8 my-[60px] md:my-[120px]"
     >
       <div
         className="w-full bg-white"
@@ -72,10 +71,9 @@ export default function ClientTestimonials() {
           borderRadius: "28px",
           boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 5px 20px rgba(0,0,0,0.05)",
           border: "1px solid rgba(0,0,0,0.05)",
-          padding: "60px",
-          /* overflow-hidden removed so right-fade gradient is visible */
         }}
       >
+        <div className="p-6 sm:p-8 md:p-[60px]">
         {/* Header */}
         <div
           className="flex flex-col md:flex-row md:items-center justify-between"
@@ -125,7 +123,7 @@ export default function ClientTestimonials() {
                 className="group flex-shrink-0 flex flex-col justify-between transition-all duration-300 hover:-translate-y-[5px]"
                 style={{
                   flex: "0 0 auto",
-                  width: "320px",
+                  width: "clamp(260px, 85vw, 320px)",
                   minHeight: "260px",
                   background: "#FAFAFA",
                   borderRadius: "20px",
@@ -217,6 +215,7 @@ export default function ClientTestimonials() {
               →
             </span>
           </div>
+        </div>
         </div>
       </div>
     </section>

@@ -59,11 +59,9 @@ export default function Hero() {
       />
 
       <div
+        className="w-full mx-auto px-4 sm:px-6 lg:px-[60px]"
         style={{
           maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "0 60px",
-          width: "100%",
         }}
       >
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 py-12 lg:py-20">
