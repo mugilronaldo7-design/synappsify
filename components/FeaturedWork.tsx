@@ -2,153 +2,169 @@
 
 import { ArrowUpRight } from "lucide-react";
 
-
 export default function FeaturedWork() {
   const projects = [
     {
       id: 1,
       title: "Muscle Possible",
-      description:
-        "Premium fitness brand focused on high-quality protein products and strong digital presence.",
+      description: "Premium fitness brand focused on high-quality protein products and strong digital presence.",
       imageBg: "linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)",
       category: "E-COMMERCE",
     },
     {
       id: 2,
       title: "BuildCraft Constructions",
-      description:
-        "Modern website for a construction firm showcasing projects and services.",
+      description: "Modern website for a construction firm showcasing projects and services.",
       imageBg: "linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%)",
       category: "CORPORATE",
     },
     {
       id: 3,
       title: "Elite Legal Services",
-      description:
-        "Professional website for a law firm with clean UI and trust-focused design.",
+      description: "Professional website for a law firm with clean UI and trust-focused design.",
       imageBg: "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)",
       category: "LEGAL",
     },
   ];
 
   return (
-    <section className="relative w-full py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-transparent flex justify-center items-center">
-      {/* Outer container card */}
+    <section
+      id="work"
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        padding: "0 16px",
+        margin: "64px auto",
+      }}
+    >
+      {/* Outer card */}
       <div
-        className="w-full bg-white mx-auto rounded-3xl"
         style={{
+          width: "100%",
           maxWidth: "1250px",
+          background: "#FFFFFF",
+          borderRadius: "40px",
           boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 5px 20px rgba(0,0,0,0.05)",
           border: "1px solid rgba(0,0,0,0.05)",
+          padding: "clamp(24px, 5vw, 64px)",
         }}
       >
-        {/* Inner padding wrapper — generous breathing room */}
-        <div className="p-8 sm:p-10 md:p-12 lg:p-16">
-          {/* Header Area */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8 mb-8 md:mb-10">
-            <h2 className="font-[family-name:var(--font-syne)] font-bold text-4xl sm:text-5xl md:text-[56px] leading-none text-[#0A0A0A] tracking-tight">
-              Portfolio.
-            </h2>
-            <p
-              className="font-[family-name:var(--font-inter)] text-base md:text-lg max-w-sm md:text-right"
-              style={{ color: "#555555" }}
-            >
-              Selected work. From local businesses to growing brands.
-            </p>
-          </div>
+        {/* Header */}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            gap: "16px",
+            borderBottom: "1px solid rgba(0,0,0,0.08)",
+            paddingBottom: "20px",
+            marginBottom: "32px",
+          }}
+        >
+          <h2
+            className="font-[family-name:var(--font-syne)]"
+            style={{ fontWeight: 700, fontSize: "clamp(36px, 6vw, 60px)", lineHeight: 1, color: "#0A0A0A", letterSpacing: "-1px" }}
+          >
+            Portfolio.
+          </h2>
+          <p
+            className="font-[family-name:var(--font-inter)]"
+            style={{ color: "#555", fontSize: "16px", maxWidth: "280px", textAlign: "right", lineHeight: 1.5 }}
+          >
+            Selected work. From local businesses to growing brands.
+          </p>
+        </div>
 
-          {/* Divider */}
-          <hr className="border-none mb-8 md:mb-10" style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }} />
-
-          {/* Scroll container with right-edge fade hint */}
-          <div className="relative">
-            <div
-              className="no-scrollbar flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory"
-              style={{ scrollBehavior: "smooth" }}
-            >
-              {projects.map((project) => (
-                <div
-                  key={project.id}
-                  className="group bg-white transition-all duration-300 hover:-translate-y-[6px] cursor-pointer flex-shrink-0 snap-start rounded-2xl"
-                  style={{
-                    width: "clamp(280px, 80vw, 340px)",
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
-                    border: "1px solid rgba(0,0,0,0.06)",
-                  }}
-                >
-                  {/* Image Placeholder */}
-                  <div
-                    className="h-52 md:h-56 relative w-full overflow-hidden rounded-t-2xl"
-                    style={{ background: project.imageBg }}
-                  >
-                    <div className="absolute top-5 left-5">
-                      <span className="px-3.5 py-1.5 bg-white rounded-full text-[10px] font-bold tracking-wider text-[#0A0A0A] shadow-sm">
-                        {project.category}
-                      </span>
-                    </div>
-
-                    {/* Hover overlay and icon */}
-                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-5 right-5 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                      <ArrowUpRight size={20} className="text-[#0A0A0A]" />
-                    </div>
+        {/* Scroll container */}
+        <div style={{ position: "relative" }}>
+          <div
+            className="no-scrollbar"
+            style={{
+              display: "flex",
+              gap: "20px",
+              overflowX: "auto",
+              paddingBottom: "12px",
+              scrollSnapType: "x mandatory",
+            }}
+          >
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                className="group"
+                style={{
+                  flex: "0 0 auto",
+                  width: "min(320px, 82vw)",
+                  scrollSnapAlign: "start",
+                  borderRadius: "24px",
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.07)",
+                  border: "1px solid rgba(0,0,0,0.06)",
+                  background: "#fff",
+                  overflow: "hidden",
+                  transition: "transform 0.25s ease",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-6px)")}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+              >
+                {/* Image area */}
+                <div style={{ height: "200px", position: "relative", background: project.imageBg }}>
+                  <div style={{ position: "absolute", top: "16px", left: "16px" }}>
+                    <span
+                      className="font-[family-name:var(--font-inter)]"
+                      style={{ padding: "6px 14px", background: "#fff", borderRadius: "999px", fontSize: "10px", fontWeight: 700, letterSpacing: "0.06em", color: "#0A0A0A", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}
+                    >
+                      {project.category}
+                    </span>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-6 whitespace-normal">
-                    <h3
-                      className="font-[family-name:var(--font-syne)] font-bold text-xl mb-2 transition-colors duration-200"
-                      style={{ color: "#7C3AED" }}
-                    >
-                      {project.title}
-                    </h3>
-                    <p
-                      className="font-[family-name:var(--font-inter)] text-sm leading-relaxed"
-                      style={{ color: "#555555" }}
-                    >
-                      {project.description}
-                    </p>
+                  <div
+                    className="opacity-0 group-hover:opacity-100"
+                    style={{ position: "absolute", bottom: "16px", right: "16px", width: "44px", height: "44px", background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(0,0,0,0.15)", transition: "all 0.25s ease" }}
+                  >
+                    <ArrowUpRight size={18} color="#0A0A0A" />
                   </div>
                 </div>
-              ))}
-            </div>
 
-            {/* Right-edge fade hint */}
-            <div
-              className="absolute right-0 top-0 bottom-0 pointer-events-none"
-              style={{
-                width: "80px",
-                background: "linear-gradient(to left, #ffffff 0%, transparent 100%)",
-                zIndex: 2,
-              }}
-            />
+                {/* Content */}
+                <div style={{ padding: "24px" }}>
+                  <h3
+                    className="font-[family-name:var(--font-syne)]"
+                    style={{ fontWeight: 700, fontSize: "18px", color: "#7C3AED", marginBottom: "8px" }}
+                  >
+                    {project.title}
+                  </h3>
+                  <p
+                    className="font-[family-name:var(--font-inter)]"
+                    style={{ fontSize: "14px", color: "#555", lineHeight: 1.6 }}
+                  >
+                    {project.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* Scroll indicator */}
-          <div className="flex justify-center mt-5">
-            <div
-              className="group flex items-center gap-2 transition-opacity duration-200"
-              style={{ opacity: 0.5 }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.9")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.5")}
-            >
-              <span className="font-[family-name:var(--font-inter)] text-xs text-gray-400">
-                Scroll
-              </span>
-              <span
-                className="inline-flex items-center justify-center text-gray-400 animate-bounce"
-                style={{
-                  width: "20px", height: "20px",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "50%",
-                  fontSize: "10px",
-                  lineHeight: 1,
-                }}
-              >
-                →
-              </span>
-            </div>
-          </div>
+          {/* Fade hint */}
+          <div
+            style={{
+              position: "absolute", right: 0, top: 0, bottom: 0,
+              width: "60px", pointerEvents: "none",
+              background: "linear-gradient(to left, #ffffff, transparent)",
+              zIndex: 2,
+            }}
+          />
+        </div>
+
+        {/* Scroll indicator */}
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+          <span
+            className="font-[family-name:var(--font-inter)]"
+            style={{ fontSize: "12px", color: "#aaa", display: "flex", alignItems: "center", gap: "6px" }}
+          >
+            Scroll
+            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "20px", height: "20px", border: "1px solid #d1d5db", borderRadius: "50%", fontSize: "10px" }}>→</span>
+          </span>
         </div>
       </div>
     </section>

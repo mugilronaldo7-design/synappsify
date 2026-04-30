@@ -59,9 +59,11 @@ export default function Hero() {
       />
 
       <div
-        className="w-full mx-auto px-4 sm:px-6 lg:px-[60px]"
         style={{
+          width: "100%",
           maxWidth: "1200px",
+          margin: "0 auto",
+          padding: "0 clamp(20px, 5vw, 60px)",
         }}
       >
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 py-12 lg:py-20">
@@ -87,7 +89,7 @@ export default function Hero() {
                 fontFamily: "var(--font-inter)",
               }}
             >
-              India's Smart Tech Agency
+              India&apos;s Smart Tech Agency
             </div>
 
             {/* Subtext */}

@@ -72,23 +72,27 @@ export default function About() {
 
       <section
         id="about"
-        className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8 my-[60px] md:my-[120px]"
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          padding: "0 16px",
+          margin: "64px auto",
+        }}
       >
         {/* ════════════ OUTER CARD ════════════ */}
         <div
           ref={sectionRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="w-full relative overflow-hidden rounded-3xl"
+          className="w-full relative overflow-hidden rounded-[40px]"
           style={{
             maxWidth: "1250px",
-            /* Base gradient */
             background: "linear-gradient(135deg, #5b21b6 0%, #7c3aed 45%, #a78bfa 100%)",
-            boxShadow:
-              "0 25px 80px rgba(109,40,217,0.35), 0 8px 30px rgba(109,40,217,0.18), inset 0 1px 1px rgba(255,255,255,0.12)",
+            boxShadow: "0 25px 80px rgba(109,40,217,0.35), 0 8px 30px rgba(109,40,217,0.18), inset 0 1px 1px rgba(255,255,255,0.12)",
           }}
         >
-          <div className="relative p-8 sm:p-10 md:p-12 lg:p-16">
+          <div className="relative" style={{ padding: "clamp(24px, 5vw, 64px)" }}>
           {/* ── Noise / grain texture ── */}
           <div
             className="absolute inset-0 pointer-events-none"

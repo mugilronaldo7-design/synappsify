@@ -9,13 +9,7 @@ export default function Pricing() {
       title: "Landing Page",
       description: "Perfect for single product or event launches.",
       price: "₹2,999",
-      features: [
-        "Single page website",
-        "Mobile responsive design",
-        "Contact form integration",
-        "Basic SEO setup",
-        "1 month free support",
-      ],
+      features: ["Single page website", "Mobile responsive design", "Contact form integration", "Basic SEO setup", "1 month free support"],
       buttonText: "Get Started",
       gradient: "linear-gradient(135deg, #E6F9F0, #CFF5E1)",
       btnColor: "#16A34A",
@@ -27,13 +21,7 @@ export default function Pricing() {
       title: "Standard Website",
       description: "Ideal for growing businesses needing an online presence.",
       price: "₹5,999",
-      features: [
-        "Up to 5 pages",
-        "Custom UI/UX design",
-        "CMS integration (CMS/Blog)",
-        "Advanced SEO setup",
-        "3 months free support",
-      ],
+      features: ["Up to 5 pages", "Custom UI/UX design", "CMS integration (CMS/Blog)", "Advanced SEO setup", "3 months free support"],
       buttonText: "Get Started",
       gradient: "linear-gradient(135deg, #EAF2FF, #DCE8FF)",
       btnColor: "#3B82F6",
@@ -45,13 +33,7 @@ export default function Pricing() {
       title: "Premium / AI Website",
       description: "Advanced solutions with AI integrations and custom web apps.",
       price: "₹9,999",
-      features: [
-        "Unlimited pages",
-        "AI Chatbot integration",
-        "E-commerce capabilities",
-        "Custom web application logic",
-        "6 months priority support",
-      ],
+      features: ["Unlimited pages", "AI Chatbot integration", "E-commerce capabilities", "Custom web application logic", "6 months priority support"],
       buttonText: "Get Started",
       gradient: "linear-gradient(135deg, #F3EEFF, #E5D9FF)",
       btnColor: "#7436DF",
@@ -61,121 +43,177 @@ export default function Pricing() {
   ];
 
   return (
-    <section 
-      className="relative w-full bg-transparent flex justify-center items-center px-4 sm:px-6 lg:px-8 mt-[60px] mb-[40px] md:mt-[120px] md:mb-[80px]"
+    <section
+      id="pricing"
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        padding: "0 16px",
+        margin: "64px auto",
+      }}
     >
-      {/* Outer container card */}
+      {/* Outer card */}
       <div
-        className="w-full mx-auto bg-white rounded-3xl"
         style={{
+          width: "100%",
           maxWidth: "1250px",
+          background: "#FFFFFF",
+          borderRadius: "40px",
           boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 5px 20px rgba(0,0,0,0.05)",
           border: "1px solid rgba(0,0,0,0.05)",
+          padding: "clamp(24px, 5vw, 64px)",
         }}
       >
-        {/* Inner padding wrapper */}
-        <div className="p-8 sm:p-10 md:p-12 lg:p-16">
-          {/* Header Area */}
-          <div
-            className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8 pb-4 mb-8 md:mb-10"
-            style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}
+        {/* Header */}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            gap: "16px",
+            borderBottom: "1px solid rgba(0,0,0,0.08)",
+            paddingBottom: "20px",
+            marginBottom: "32px",
+          }}
+        >
+          <h2
+            className="font-[family-name:var(--font-syne)]"
+            style={{ fontWeight: 700, fontSize: "clamp(36px, 6vw, 60px)", lineHeight: 1, color: "#0A0A0A", letterSpacing: "-1px" }}
           >
-            <h2 className="font-[family-name:var(--font-syne)] font-bold text-4xl sm:text-5xl md:text-[56px] leading-none text-[#0A0A0A] tracking-tight">
-              Pricing.
-            </h2>
-            <p
-              className="font-[family-name:var(--font-inter)] text-base md:text-lg max-w-sm md:text-right"
-              style={{ color: "#555555" }}
+            Pricing.
+          </h2>
+          <p
+            className="font-[family-name:var(--font-inter)]"
+            style={{ color: "#555", fontSize: "16px", maxWidth: "280px", textAlign: "right", lineHeight: 1.5 }}
+          >
+            Transparent pricing. Built for growing businesses.
+          </p>
+        </div>
+
+        {/* Cards grid — stacks on mobile, 3-col on desktop */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))",
+            gap: "24px",
+          }}
+        >
+          {plans.map((plan) => (
+            <div
+              key={plan.id}
+              style={{
+                background: plan.gradient,
+                borderRadius: "24px",
+                padding: "clamp(20px, 4vw, 36px)",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+                border: "1px solid rgba(0,0,0,0.04)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                position: "relative",
+                overflow: "hidden",
+                transition: "transform 0.25s ease",
+                cursor: "default",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-6px)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
             >
-              Transparent pricing. Built for growing businesses.
-            </p>
-          </div>
-
-          {/* Pricing Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {plans.map((plan) => (
-              <div
-                key={plan.id}
-                className="group transition-all duration-300 hover:-translate-y-[6px] flex flex-col justify-between relative overflow-hidden rounded-2xl"
-                style={{
-                  background: plan.gradient,
-                  padding: "28px",
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
-                  border: "1px solid rgba(0,0,0,0.04)",
-                }}
-              >
-                {plan.isPopular && (
-                  <div className="absolute top-0 right-0 bg-[#3B82F6] text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg tracking-wider shadow-sm z-10">
-                    POPULAR
-                  </div>
-                )}
-
-                {/* Top Content */}
-                <div className="flex flex-col flex-grow">
-                  <div className="mb-5">
-                    <h3
-                      className="font-[family-name:var(--font-syne)] font-bold text-2xl mb-3"
-                      style={{ color: "#0A0A0A" }}
-                    >
-                      {plan.title}
-                    </h3>
-                    <p
-                      className="font-[family-name:var(--font-inter)] text-base leading-relaxed"
-                      style={{ color: "#555555" }}
-                    >
-                      {plan.description}
-                    </p>
-                  </div>
-
-                  <div
-                    className="font-[family-name:var(--font-syne)] font-bold text-4xl md:text-5xl tracking-tight mb-6"
-                    style={{ color: "#0A0A0A" }}
-                  >
-                    {plan.price}
-                  </div>
-
-                  <ul className="space-y-3 md:space-y-4 flex-grow mb-8">
-                    {plan.features.map((feature, idx) => (
-                      <li
-                        key={idx}
-                        className="flex items-start gap-3 font-[family-name:var(--font-inter)] text-[15px] leading-relaxed"
-                        style={{ color: "#333333" }}
-                      >
-                        <div
-                          className="flex-shrink-0 mt-0.5 rounded-full p-0.5 bg-white shadow-sm"
-                          style={{ color: plan.btnColor }}
-                        >
-                          <Check size={14} strokeWidth={3} />
-                        </div>
-                        <span className="font-medium">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Bottom Button */}
-                <button
-                  className="w-full rounded-xl font-bold text-base transition-all duration-200"
+              {plan.isPopular && (
+                <div
                   style={{
-                    height: "52px",
-                    background: plan.btnColor,
-                    color: "#FFFFFF",
-                    boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = plan.btnHover;
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = plan.btnColor;
-                    e.currentTarget.style.transform = "translateY(0px)";
+                    position: "absolute", top: 0, right: 0,
+                    background: "#3B82F6", color: "#fff",
+                    fontSize: "10px", fontWeight: 700,
+                    padding: "6px 14px",
+                    borderBottomLeftRadius: "12px",
+                    letterSpacing: "0.06em",
                   }}
                 >
-                  {plan.buttonText}
-                </button>
+                  POPULAR
+                </div>
+              )}
+
+              {/* Top content */}
+              <div style={{ flex: 1 }}>
+                <div style={{ marginBottom: "20px" }}>
+                  <h3
+                    className="font-[family-name:var(--font-syne)]"
+                    style={{ fontWeight: 700, fontSize: "22px", color: "#0A0A0A", marginBottom: "8px" }}
+                  >
+                    {plan.title}
+                  </h3>
+                  <p
+                    className="font-[family-name:var(--font-inter)]"
+                    style={{ fontSize: "15px", color: "#555", lineHeight: 1.5 }}
+                  >
+                    {plan.description}
+                  </p>
+                </div>
+
+                <div
+                  className="font-[family-name:var(--font-syne)]"
+                  style={{ fontWeight: 700, fontSize: "clamp(36px, 5vw, 48px)", color: "#0A0A0A", marginBottom: "20px", letterSpacing: "-1px" }}
+                >
+                  {plan.price}
+                </div>
+
+                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px 0", display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {plan.features.map((feature, idx) => (
+                    <li
+                      key={idx}
+                      className="font-[family-name:var(--font-inter)]"
+                      style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "#333", lineHeight: 1.5 }}
+                    >
+                      <span
+                        style={{
+                          flexShrink: 0, marginTop: "2px",
+                          width: "18px", height: "18px",
+                          background: "#fff",
+                          borderRadius: "50%",
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                          color: plan.btnColor,
+                        }}
+                      >
+                        <Check size={11} strokeWidth={3} />
+                      </span>
+                      <span style={{ fontWeight: 500 }}>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </div>
+
+              {/* Button */}
+              <button
+                className="font-[family-name:var(--font-inter)]"
+                style={{
+                  width: "100%",
+                  height: "52px",
+                  background: plan.btnColor,
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "14px",
+                  fontSize: "15px",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = plan.btnHover;
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = plan.btnColor;
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
+                {plan.buttonText}
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </section>

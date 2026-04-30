@@ -13,7 +13,15 @@ export default function CTASection() {
   };
 
   return (
-    <section className="w-full flex justify-center px-4 sm:px-6 lg:px-8 mt-[60px] md:mt-[96px]">
+    <section
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        padding: "0 16px",
+        margin: "64px auto",
+      }}
+    >
       <div
         className="w-full relative overflow-hidden rounded-3xl"
         style={{
@@ -45,7 +53,7 @@ export default function CTASection() {
         </div>
 
         {/* Content — single inner padding */}
-        <div className="relative p-8 sm:p-10 md:p-12 lg:p-16" style={{ zIndex: 1 }}>
+        <div className="relative p-[clamp(24px,5vw,64px)]" style={{ zIndex: 1 }}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6">
           {/* LEFT */}
           <div className="flex-1 max-w-xl">
