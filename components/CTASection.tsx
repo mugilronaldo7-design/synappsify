@@ -13,7 +13,7 @@ export default function CTASection() {
   };
 
   return (
-    <section className="w-full flex justify-center px-4 sm:px-6 lg:px-8" style={{ marginTop: "96px" }}>
+    <section className="w-full flex justify-center px-4 sm:px-6 lg:px-8 mt-[60px] md:mt-[96px]">
       <div
         className="w-full relative overflow-hidden rounded-3xl"
         style={{
@@ -44,12 +44,9 @@ export default function CTASection() {
           }} />
         </div>
 
-        {/* Content */}
-        <div
-          className="relative flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6"
-          style={{ zIndex: 1 }}
-        >
-          <div className="w-full px-6 sm:px-8 md:px-[60px] py-10 md:py-[56px] flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6">
+        {/* Content — single inner padding */}
+        <div className="relative p-8 sm:p-10 md:p-12 lg:p-16" style={{ zIndex: 1 }}>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6">
           {/* LEFT */}
           <div className="flex-1 max-w-xl">
             {/* Tag */}
@@ -168,68 +165,61 @@ export default function CTASection() {
               </span>
             </div>
           </div>
-          </div>
-        </div>{/* ── end content row ── */}
+          </div>{/* end flex row */}
 
-        {/* ── Minimal footer bar inside the card ── */}
-        <div
-          className="relative flex flex-wrap items-center justify-between gap-4"
-          style={{
-            zIndex: 1,
-            borderTop: "1px solid rgba(255,255,255,0.08)",
-            paddingTop: "20px",
-            paddingBottom: "28px",
-          }}
-        >
-          <div className="mx-6 sm:mx-8 md:mx-[60px] w-full flex flex-wrap items-center justify-between gap-4">
-          {/* Left — logo + links */}
+          {/* Footer bar */}
           <div
-            className="flex flex-wrap items-center gap-x-4 gap-y-1 font-[family-name:var(--font-inter)] text-sm"
-            style={{ color: "rgba(255,255,255,0.5)" }}
+            className="flex flex-wrap items-center justify-between gap-4 pt-6 mt-6"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
           >
-            <span
-              className="font-[family-name:var(--font-syne)] font-semibold"
-              style={{ color: "#ffffff" }}
+            {/* Left — logo + links */}
+            <div
+              className="flex flex-wrap items-center gap-x-4 gap-y-1 font-[family-name:var(--font-inter)] text-sm"
+              style={{ color: "rgba(255,255,255,0.5)" }}
             >
-              Synappsify
-            </span>
-            <span>© 2026</span>
-            {["Services", "About", "Portfolio", "Contact"].map((link) => (
-              <button
-                key={link}
-                onClick={() => {
-                  document.getElementById(link.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="transition-colors duration-150 hover:text-white"
-                style={{ color: "rgba(255,255,255,0.5)" }}
+              <span
+                className="font-[family-name:var(--font-syne)] font-semibold"
+                style={{ color: "#ffffff" }}
               >
-                · {link}
-              </button>
-            ))}
-          </div>
+                Synappsify
+              </span>
+              <span>© 2026</span>
+              {["Services", "About", "Portfolio", "Contact"].map((link) => (
+                <button
+                  key={link}
+                  onClick={() => {
+                    document.getElementById(link.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="transition-colors duration-150 hover:text-white"
+                  style={{ color: "rgba(255,255,255,0.5)" }}
+                >
+                  · {link}
+                </button>
+              ))}
+            </div>
 
-          {/* Right — social icons (Pro look) */}
-          <div className="flex items-center gap-3 ml-4">
-            <a
-              href="https://wa.me/919999999999"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp"
-              className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition duration-300"
-            >
-              <FaWhatsapp className="text-white text-2xl" />
-            </a>
-            <a
-              href="https://instagram.com/synappsify"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition duration-300"
-            >
-              <FaInstagram className="text-white text-2xl" />
-            </a>
+            {/* Right — social icons */}
+            <div className="flex items-center gap-3">
+              <a
+                href="https://wa.me/919999999999"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition duration-300"
+              >
+                <FaWhatsapp className="text-white text-2xl" />
+              </a>
+              <a
+                href="https://instagram.com/synappsify"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition duration-300"
+              >
+                <FaInstagram className="text-white text-2xl" />
+              </a>
+            </div>
           </div>
-          </div>{/* end inner footer wrapper */}
         </div>
       </div>
     </section>

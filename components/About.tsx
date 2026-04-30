@@ -79,17 +79,16 @@ export default function About() {
           ref={sectionRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="w-full relative overflow-hidden"
+          className="w-full relative overflow-hidden rounded-3xl"
           style={{
             maxWidth: "1250px",
-            borderRadius: "28px",
             /* Base gradient */
             background: "linear-gradient(135deg, #5b21b6 0%, #7c3aed 45%, #a78bfa 100%)",
             boxShadow:
               "0 25px 80px rgba(109,40,217,0.35), 0 8px 30px rgba(109,40,217,0.18), inset 0 1px 1px rgba(255,255,255,0.12)",
           }}
         >
-          <div className="p-6 sm:p-8 md:p-[56px_60px]">
+          <div className="relative p-8 sm:p-10 md:p-12 lg:p-16">
           {/* ── Noise / grain texture ── */}
           <div
             className="absolute inset-0 pointer-events-none"

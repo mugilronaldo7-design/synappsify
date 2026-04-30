@@ -62,108 +62,102 @@ export default function FAQ() {
     <section
       className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8 my-[60px] md:my-[120px]"
     >
+      {/* Outer container card */}
       <div
-        className="w-full bg-white"
+        className="w-full bg-white rounded-3xl"
         style={{
           maxWidth: "1250px",
-          borderRadius: "28px",
           boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 5px 20px rgba(0,0,0,0.05)",
           border: "1px solid rgba(0,0,0,0.05)",
         }}
       >
-        <div className="p-6 sm:p-8 md:p-[60px]">
-        {/* ── Header ── */}
-        <div
-          className="flex flex-col md:flex-row md:items-center justify-between"
-          style={{
-            borderBottom: "1px solid rgba(0,0,0,0.08)",
-            paddingBottom: "16px",
-            marginBottom: "40px",
-            gap: "32px",
-          }}
-        >
-          <h2 className="font-[family-name:var(--font-syne)] font-bold text-4xl sm:text-5xl md:text-[56px] leading-none text-[#0A0A0A] tracking-tight">
-            FAQ.
-          </h2>
-          <p
-            className="font-[family-name:var(--font-inter)] text-base md:text-lg max-w-xs md:text-right"
-            style={{ color: "#555555" }}
+        {/* Inner padding wrapper */}
+        <div className="p-8 sm:p-10 md:p-12 lg:p-16">
+          {/* Header */}
+          <div
+            className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8 pb-4 mb-10"
+            style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}
           >
-            Straight answers to your questions.
+            <h2 className="font-[family-name:var(--font-syne)] font-bold text-4xl sm:text-5xl md:text-[56px] leading-none text-[#0A0A0A] tracking-tight">
+              FAQ.
+            </h2>
+            <p
+              className="font-[family-name:var(--font-inter)] text-base md:text-lg max-w-xs md:text-right"
+              style={{ color: "#555555" }}
+            >
+              Straight answers to your questions.
+            </p>
+          </div>
+
+          {/* Sub-heading */}
+          <p
+            className="font-[family-name:var(--font-syne)] font-semibold text-xl text-[#0A0A0A] mb-6"
+          >
+            Good to know
           </p>
-        </div>
 
-        {/* ── Sub-heading ── */}
-        <p
-          className="font-[family-name:var(--font-syne)] font-semibold text-xl text-[#0A0A0A]"
-          style={{ marginBottom: "24px" }}
-        >
-          Good to know
-        </p>
-
-        {/* ── Accordion Items ── */}
-        <div className="flex flex-col" style={{ gap: "12px" }}>
-          {faqs.map((faq, idx) => {
-            const isOpen = openIndex === idx;
-            return (
-              <div
-                key={idx}
-                onClick={() => toggle(idx)}
-                className="group cursor-pointer transition-all duration-200"
-                style={{
-                  background: "#FAFAFA",
-                  borderRadius: "16px",
-                  padding: "20px 24px",
-                  border: isOpen
-                    ? "1px solid rgba(124,58,237,0.2)"
-                    : "1px solid rgba(0,0,0,0.04)",
-                  boxShadow: isOpen
-                    ? "0 8px 24px rgba(124,58,237,0.08)"
-                    : "0 2px 8px rgba(0,0,0,0.03)",
-                }}
-              >
-                {/* Question row */}
-                <div className="flex items-center justify-between gap-4">
-                  <span
-                    className="font-[family-name:var(--font-inter)] font-semibold text-[16px] md:text-[17px] text-[#0A0A0A] leading-snug"
-                  >
-                    {faq.question}
-                  </span>
-                  <span
-                    className="flex-shrink-0 transition-transform duration-300"
-                    style={{
-                      transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      color: isOpen ? "#7C3AED" : "#999999",
-                    }}
-                  >
-                    <ChevronDown size={20} strokeWidth={2.5} />
-                  </span>
-                </div>
-
-                {/* Answer — animated height via max-height trick */}
+          {/* Accordion Items */}
+          <div className="flex flex-col gap-3">
+            {faqs.map((faq, idx) => {
+              const isOpen = openIndex === idx;
+              return (
                 <div
+                  key={idx}
+                  onClick={() => toggle(idx)}
+                  className="group cursor-pointer transition-all duration-200 rounded-2xl"
                   style={{
-                    maxHeight: isOpen ? "400px" : "0px",
-                    overflow: "hidden",
-                    transition: "max-height 0.35s ease-in-out, opacity 0.3s ease",
-                    opacity: isOpen ? 1 : 0,
+                    background: "#FAFAFA",
+                    padding: "20px 24px",
+                    border: isOpen
+                      ? "1px solid rgba(124,58,237,0.2)"
+                      : "1px solid rgba(0,0,0,0.06)",
+                    boxShadow: isOpen
+                      ? "0 8px 24px rgba(124,58,237,0.08)"
+                      : "0 2px 8px rgba(0,0,0,0.03)",
                   }}
                 >
+                  {/* Question row */}
+                  <div className="flex items-center justify-between gap-4">
+                    <span
+                      className="font-[family-name:var(--font-inter)] font-semibold text-[16px] md:text-[17px] text-[#0A0A0A] leading-snug"
+                    >
+                      {faq.question}
+                    </span>
+                    <span
+                      className="flex-shrink-0 transition-transform duration-300"
+                      style={{
+                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                        color: isOpen ? "#7C3AED" : "#999999",
+                      }}
+                    >
+                      <ChevronDown size={20} strokeWidth={2.5} />
+                    </span>
+                  </div>
+
+                  {/* Answer */}
                   <div
-                    className="font-[family-name:var(--font-inter)] text-[15px] leading-relaxed"
-                    style={{ color: "#666666", marginTop: "10px" }}
+                    style={{
+                      maxHeight: isOpen ? "400px" : "0px",
+                      overflow: "hidden",
+                      transition: "max-height 0.35s ease-in-out, opacity 0.3s ease",
+                      opacity: isOpen ? 1 : 0,
+                    }}
                   >
-                    {faq.answer.split("\n").map((line, i) => (
-                      <p key={i} style={{ marginBottom: i < faq.answer.split("\n").length - 1 ? "4px" : "0" }}>
-                        {line}
-                      </p>
-                    ))}
+                    <div
+                      className="font-[family-name:var(--font-inter)] text-[15px] leading-relaxed"
+                      style={{ color: "#666666", marginTop: "10px" }}
+                    >
+                      {faq.answer.split("\n").map((line, i) => (
+                        <p key={i} style={{ marginBottom: i < faq.answer.split("\n").length - 1 ? "4px" : "0" }}>
+                          {line}
+                        </p>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
