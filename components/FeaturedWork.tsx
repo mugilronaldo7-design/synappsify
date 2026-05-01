@@ -4,61 +4,56 @@ import { useState, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 export default function FeaturedWork() {
-  const initialProjects = [
-    {
-      id: "1",
-      title: "Muscle Possible",
-      description: "Premium fitness brand focused on high-quality protein products and strong digital presence.",
-      imageBg: "linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)",
-      category: "E-COMMERCE",
-      imageUrl: "",
-      link: "",
-    },
-    {
-      id: "2",
-      title: "BuildCraft Constructions",
-      description: "Modern website for a construction firm showcasing projects and services.",
-      imageBg: "linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%)",
-      category: "CORPORATE",
-      imageUrl: "",
-      link: "",
-    },
-    {
-      id: "3",
-      title: "Elite Legal Services",
-      description: "Professional website for a law firm with clean UI and trust-focused design.",
-      imageBg: "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)",
-      category: "LEGAL",
-      imageUrl: "",
-      link: "",
-    },
-  ];
-
-  const [projects, setProjects] = useState<any[]>(initialProjects);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    let unsubscribe: () => void;
+
+    const setupListener = async () => {
       try {
         const { getFirebaseDb } = await import("@/lib/firebase");
-        const { collection, getDocs, query, orderBy } = await import("firebase/firestore");
+        const { collection, onSnapshot, query, orderBy } = await import("firebase/firestore");
         const db = getFirebaseDb();
+        // Ensure we are strictly reading from 'portfolio' collection
         const q = query(collection(db, "portfolio"), orderBy("createdAt", "asc"));
-        const querySnapshot = await getDocs(q);
         
-        if (!querySnapshot.empty) {
-          const fetchedProjects = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-            imageBg: "linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)", // Default background if no image
-          }));
-          setProjects(fetchedProjects);
-        }
+        unsubscribe = onSnapshot(q, (querySnapshot) => {
+          console.log(`[Portfolio] Snapshot received. Empty: ${querySnapshot.empty}, Size: ${querySnapshot.size}`);
+          if (!querySnapshot.empty) {
+            const fetchedProjects = querySnapshot.docs.map(doc => {
+              const data = doc.data();
+              console.log(`[Portfolio] Project loaded:`, { id: doc.id, ...data });
+              return {
+                id: doc.id,
+                ...data,
+                imageBg: "linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)", // Default background if no image
+              };
+            });
+            setProjects(fetchedProjects);
+          } else {
+            console.log("[Portfolio] Collection is empty.");
+            setProjects([]);
+          }
+          setLoading(false);
+        }, (err) => {
+          console.error("[Portfolio] Failed to fetch projects:", err);
+          setError("Failed to load projects.");
+          setLoading(false);
+        });
       } catch (e) {
-        console.error("Failed to fetch projects:", e);
+        console.error("[Portfolio] Failed to setup Firebase listener:", e);
+        setError("Failed to load projects.");
+        setLoading(false);
       }
     };
     
-    fetchProjects();
+    setupListener();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
   }, []);
 
   return (
@@ -123,72 +118,80 @@ export default function FeaturedWork() {
               scrollSnapType: "x mandatory",
             }}
           >
-            {projects.map((project) => (
-              <div
-                key={project.id}
-                className="group"
-                onClick={() => {
-                  if (project.link) window.open(project.link, "_blank");
-                }}
-                style={{
-                  flex: "0 0 auto",
-                  width: "min(320px, 82vw)",
-                  scrollSnapAlign: "start",
-                  borderRadius: "24px",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.07)",
-                  border: "1px solid rgba(0,0,0,0.06)",
-                  background: "#fff",
-                  overflow: "hidden",
-                  transition: "transform 0.25s ease",
-                  cursor: project.link ? "pointer" : "default",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-6px)")}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-              >
-                {/* Image area */}
-                <div style={{ 
-                  height: "200px", 
-                  position: "relative", 
-                  background: project.imageBg,
-                  backgroundImage: project.imageUrl ? `url(${project.imageUrl})` : undefined,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center"
-                }}>
-                  <div style={{ position: "absolute", top: "16px", left: "16px" }}>
-                    <span
-                      className="font-[family-name:var(--font-inter)]"
-                      style={{ padding: "6px 14px", background: "#fff", borderRadius: "999px", fontSize: "10px", fontWeight: 700, letterSpacing: "0.06em", color: "#0A0A0A", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}
-                    >
-                      {project.category || "PROJECT"}
-                    </span>
-                  </div>
-                  {project.link && (
-                    <div
-                      className="opacity-0 group-hover:opacity-100"
-                      style={{ position: "absolute", bottom: "16px", right: "16px", width: "44px", height: "44px", background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(0,0,0,0.15)", transition: "all 0.25s ease" }}
-                    >
-                      <ArrowUpRight size={18} color="#0A0A0A" />
+            {loading ? (
+              <div style={{ padding: "40px", color: "#555", fontFamily: "var(--font-inter)" }}>Loading projects...</div>
+            ) : error ? (
+              <div style={{ padding: "40px", color: "red", fontFamily: "var(--font-inter)" }}>{error}</div>
+            ) : projects.length === 0 ? (
+              <div style={{ padding: "40px", color: "#555", fontFamily: "var(--font-inter)" }}>No projects added yet.</div>
+            ) : (
+              projects.map((project) => (
+                <div
+                  key={project.id}
+                  className="group"
+                  onClick={() => {
+                    if (project.link) window.open(project.link, "_blank");
+                  }}
+                  style={{
+                    flex: "0 0 auto",
+                    width: "min(320px, 82vw)",
+                    scrollSnapAlign: "start",
+                    borderRadius: "24px",
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.07)",
+                    border: "1px solid rgba(0,0,0,0.06)",
+                    background: "#fff",
+                    overflow: "hidden",
+                    transition: "transform 0.25s ease",
+                    cursor: project.link ? "pointer" : "default",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-6px)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+                >
+                  {/* Image area */}
+                  <div style={{ 
+                    height: "200px", 
+                    position: "relative", 
+                    background: project.imageBg,
+                    backgroundImage: project.imageUrl ? `url(${project.imageUrl})` : undefined,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center"
+                  }}>
+                    <div style={{ position: "absolute", top: "16px", left: "16px" }}>
+                      <span
+                        className="font-[family-name:var(--font-inter)]"
+                        style={{ padding: "6px 14px", background: "#fff", borderRadius: "999px", fontSize: "10px", fontWeight: 700, letterSpacing: "0.06em", color: "#0A0A0A", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}
+                      >
+                        {project.category || "PROJECT"}
+                      </span>
                     </div>
-                  )}
+                    {project.link && (
+                      <div
+                        className="opacity-0 group-hover:opacity-100"
+                        style={{ position: "absolute", bottom: "16px", right: "16px", width: "44px", height: "44px", background: "#fff", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(0,0,0,0.15)", transition: "all 0.25s ease" }}
+                      >
+                        <ArrowUpRight size={18} color="#0A0A0A" />
+                      </div>
+                    )}
+                  </div>
+  
+                  {/* Content */}
+                  <div style={{ padding: "24px" }}>
+                    <h3
+                      className="font-[family-name:var(--font-syne)]"
+                      style={{ fontWeight: 700, fontSize: "18px", color: "#7C3AED", marginBottom: "8px" }}
+                    >
+                      {project.title}
+                    </h3>
+                    <p
+                      className="font-[family-name:var(--font-inter)]"
+                      style={{ fontSize: "14px", color: "#555", lineHeight: 1.6 }}
+                    >
+                      {project.description}
+                    </p>
+                  </div>
                 </div>
-
-                {/* Content */}
-                <div style={{ padding: "24px" }}>
-                  <h3
-                    className="font-[family-name:var(--font-syne)]"
-                    style={{ fontWeight: 700, fontSize: "18px", color: "#7C3AED", marginBottom: "8px" }}
-                  >
-                    {project.title}
-                  </h3>
-                  <p
-                    className="font-[family-name:var(--font-inter)]"
-                    style={{ fontSize: "14px", color: "#555", lineHeight: 1.6 }}
-                  >
-                    {project.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
 
           {/* Fade hint */}

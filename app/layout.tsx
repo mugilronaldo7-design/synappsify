@@ -48,8 +48,9 @@ export default function RootLayout({
       lang="en"
       className={`${syne.variable} ${inter.variable}`}
       style={{ scrollBehavior: "smooth" }}
+      suppressHydrationWarning
     >
-      <body className="bg-[#0A0A0A] text-white overflow-x-hidden">
+      <body className="bg-[#0A0A0A] text-white overflow-x-hidden" suppressHydrationWarning>
         <SmoothScroll>
           <Navbar />
           <main>{children}</main>

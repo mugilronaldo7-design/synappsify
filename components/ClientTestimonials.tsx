@@ -2,43 +2,60 @@
 
 import { useRef, useState, useEffect } from "react";
 import { Star } from "lucide-react";
-
-const initialTestimonials = [
-  { name: "Rahul Mehta", role: "Fitness Brand Owner", review: "Synappsify completely transformed our online presence. The design looks premium and conversions improved instantly.", initials: "RM", color: "#7C3AED", rating: 5 },
-  { name: "Ankit Sharma", role: "Construction Firm", review: "Smooth process, fast delivery, and extremely professional. Highly recommended for serious businesses.", initials: "AS", color: "#2563EB", rating: 5 },
-  { name: "Priya Verma", role: "Legal Consultant", review: "Clean design, strong branding, and everything works flawlessly across devices.", initials: "PV", color: "#059669", rating: 5 },
-  { name: "Karthik R", role: "Startup Founder", review: "They understood our vision and built exactly what we needed. Great communication and execution.", initials: "KR", color: "#D97706", rating: 5 },
-];
-
 const colors = ["#7C3AED", "#2563EB", "#059669", "#D97706", "#DB2777"];
 
 export default function ClientTestimonials() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [testimonials, setTestimonials] = useState<any[]>(initialTestimonials);
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchTestimonials = async () => {
+    let unsubscribe: () => void;
+
+    const setupListener = async () => {
       try {
         const { getFirebaseDb } = await import("@/lib/firebase");
-        const { collection, getDocs, query, orderBy } = await import("firebase/firestore");
+        const { collection, onSnapshot, query, orderBy } = await import("firebase/firestore");
         const db = getFirebaseDb();
+        // Ensure we are strictly reading from 'testimonials' collection
         const q = query(collection(db, "testimonials"), orderBy("createdAt", "asc"));
-        const querySnapshot = await getDocs(q);
         
-        if (!querySnapshot.empty) {
-          const fetchedTestimonials = querySnapshot.docs.map((doc, idx) => ({
-            id: doc.id,
-            ...doc.data(),
-            color: colors[idx % colors.length], // Assign a color based on index
-          }));
-          setTestimonials(fetchedTestimonials);
-        }
+        unsubscribe = onSnapshot(q, (querySnapshot) => {
+          console.log(`[Testimonials] Snapshot received. Empty: ${querySnapshot.empty}, Size: ${querySnapshot.size}`);
+          if (!querySnapshot.empty) {
+            const fetchedTestimonials = querySnapshot.docs.map((doc, idx) => {
+              const data = doc.data();
+              console.log(`[Testimonials] Testimonial loaded:`, { id: doc.id, ...data });
+              return {
+                id: doc.id,
+                ...data,
+                color: colors[idx % colors.length], // Assign a color based on index
+              };
+            });
+            setTestimonials(fetchedTestimonials);
+          } else {
+            console.log("[Testimonials] Collection is empty.");
+            setTestimonials([]);
+          }
+          setLoading(false);
+        }, (err) => {
+          console.error("[Testimonials] Failed to fetch testimonials:", err);
+          setError("Failed to load testimonials.");
+          setLoading(false);
+        });
       } catch (e) {
-        console.error("Failed to fetch testimonials:", e);
+        console.error("[Testimonials] Failed to setup Firebase listener:", e);
+        setError("Failed to load testimonials.");
+        setLoading(false);
       }
     };
     
-    fetchTestimonials();
+    setupListener();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
   }, []);
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -126,62 +143,70 @@ export default function ClientTestimonials() {
               userSelect: "none",
             }}
           >
-            {testimonials.map((t, i) => (
-              <div
-                key={i}
-                style={{
-                  flex: "0 0 auto",
-                  width: "min(320px, 82vw)",
-                  scrollSnapAlign: "start",
-                  background: "#FAFAFA",
-                  borderRadius: "24px",
-                  padding: "28px",
-                  boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
-                  border: "1px solid rgba(0,0,0,0.06)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  minHeight: "240px",
-                  transition: "transform 0.25s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-5px)")}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-              >
-                {/* Stars */}
-                <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
-                  {Array.from({ length: 5 }).map((_, s) => (
-                    <Star key={s} size={15} fill={s < (t.rating || 5) ? t.color : "#E5E7EB"} stroke="none" />
-                  ))}
-                </div>
-
-                {/* Review */}
-                <p
-                  className="font-[family-name:var(--font-inter)]"
-                  style={{ fontSize: "14px", color: "#444", lineHeight: 1.7, flex: 1, marginBottom: "20px" }}
+            {loading ? (
+              <div style={{ padding: "40px", color: "#555", fontFamily: "var(--font-inter)" }}>Loading testimonials...</div>
+            ) : error ? (
+              <div style={{ padding: "40px", color: "red", fontFamily: "var(--font-inter)" }}>{error}</div>
+            ) : testimonials.length === 0 ? (
+              <div style={{ padding: "40px", color: "#555", fontFamily: "var(--font-inter)" }}>No testimonials added yet.</div>
+            ) : (
+              testimonials.map((t, i) => (
+                <div
+                  key={i}
+                  style={{
+                    flex: "0 0 auto",
+                    width: "min(320px, 82vw)",
+                    scrollSnapAlign: "start",
+                    background: "#FAFAFA",
+                    borderRadius: "24px",
+                    padding: "28px",
+                    boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
+                    border: "1px solid rgba(0,0,0,0.06)",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    minHeight: "240px",
+                    transition: "transform 0.25s ease",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-5px)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
                 >
-                  &ldquo;{t.feedback || t.review}&rdquo;
-                </p>
-
-                {/* Avatar */}
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <div
-                    style={{
-                      flexShrink: 0, width: "44px", height: "44px",
-                      background: t.color, borderRadius: "50%",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      color: "#fff", fontWeight: 700, fontSize: "13px",
-                      boxShadow: `0 4px 12px ${t.color}55`,
-                    }}
-                  >
-                    {t.initials}
+                  {/* Stars */}
+                  <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
+                    {Array.from({ length: 5 }).map((_, s) => (
+                      <Star key={s} size={15} fill={s < (t.rating || 5) ? t.color : "#E5E7EB"} stroke="none" />
+                    ))}
                   </div>
-                  <div>
-                    <p className="font-[family-name:var(--font-syne)]" style={{ fontWeight: 700, fontSize: "14px", color: "#0A0A0A" }}>{t.name}</p>
-                    <p className="font-[family-name:var(--font-inter)]" style={{ fontSize: "13px", color: "#888" }}>{t.role}</p>
+  
+                  {/* Review */}
+                  <p
+                    className="font-[family-name:var(--font-inter)]"
+                    style={{ fontSize: "14px", color: "#444", lineHeight: 1.7, flex: 1, marginBottom: "20px" }}
+                  >
+                    &ldquo;{t.feedback || t.review}&rdquo;
+                  </p>
+  
+                  {/* Avatar */}
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                    <div
+                      style={{
+                        flexShrink: 0, width: "44px", height: "44px",
+                        background: t.color, borderRadius: "50%",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        color: "#fff", fontWeight: 700, fontSize: "13px",
+                        boxShadow: `0 4px 12px ${t.color}55`,
+                      }}
+                    >
+                      {t.initials}
+                    </div>
+                    <div>
+                      <p className="font-[family-name:var(--font-syne)]" style={{ fontWeight: 700, fontSize: "14px", color: "#0A0A0A" }}>{t.name}</p>
+                      <p className="font-[family-name:var(--font-inter)]" style={{ fontSize: "13px", color: "#888" }}>{t.role}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
 
           {/* Fade */}
