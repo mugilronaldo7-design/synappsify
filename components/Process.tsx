@@ -109,6 +109,7 @@ const outputItems = ["High-performance products", "Automated workflows", "Revenu
 
 export default function Process() {
   const [activeStep, setActiveStep] = useState<number | null>(null);
+  const [timelineRevealed, setTimelineRevealed] = useState(false);
   const [activeTab, setActiveTab] = useState("websites");
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -121,6 +122,17 @@ export default function Process() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
+  // Auto-expand first card after the section fade-in completes
+  useEffect(() => {
+    if (isVisible && !timelineRevealed) {
+      const timer = setTimeout(() => {
+        setActiveStep(0);
+        setTimelineRevealed(true);
+      }, 700); // fires after the 600ms card fade-in
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, timelineRevealed]);
 
   const activeTabData = serviceTabs.find((t) => t.id === activeTab)!;
 
@@ -336,9 +348,20 @@ export default function Process() {
                 index={i}
                 isActive={activeStep === i}
                 onHover={() => setActiveStep(i)}
-                onLeave={() => setActiveStep(null)}
+                onLeave={() => setActiveStep(timelineRevealed ? 0 : null)}
               />
             ))}
+          </div>
+
+          {/* Mobile-only scroll indicator — matches Portfolio / Testimonials */}
+          <div className="flex md:hidden justify-center" style={{ marginTop: "16px" }}>
+            <span
+              className="font-[family-name:var(--font-inter)]"
+              style={{ fontSize: "12px", color: "#aaa", display: "flex", alignItems: "center", gap: "6px" }}
+            >
+              Scroll
+              <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "20px", height: "20px", border: "1px solid #d1d5db", borderRadius: "50%", fontSize: "10px" }}>→</span>
+            </span>
           </div>
         </div>
 
