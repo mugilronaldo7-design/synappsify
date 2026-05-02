@@ -4,7 +4,20 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 
-const navLinks = [
+type NavItem = {
+  label: string;
+  subtitle?: string;
+  href?: string;
+};
+
+type NavLink = {
+  label: string;
+  href?: string;
+  isDropdown?: boolean;
+  items?: NavItem[];
+};
+
+const navLinks: NavLink[] = [
   { label: "Home", href: "#hero" },
   { 
     label: "Services", 
@@ -150,7 +163,7 @@ export default function Navbar() {
             return (
               <button
                 key={link.label}
-                onClick={() => scrollToSection(link.href)}
+                onClick={() => link.href && scrollToSection(link.href)}
                 className="px-4 py-2 text-sm text-[#555555] hover:text-[#0A0A0A] transition-colors duration-200 rounded-lg hover:bg-black/5 font-[family-name:var(--font-inter)]"
               >
                 {link.label}
@@ -246,7 +259,7 @@ export default function Navbar() {
           return (
             <button
               key={link.label}
-              onClick={() => scrollToSection(link.href)}
+              onClick={() => link.href && scrollToSection(link.href)}
               className="text-2xl font-bold text-[#0A0A0A] hover:text-[#7C3AED] transition-colors font-[family-name:var(--font-syne)] py-2"
             >
               {link.label}
