@@ -29,7 +29,7 @@ export default function Pricing() {
       title: "Pro Plan",
       description: "Best for: Businesses and scaling brands",
       price: "Starting ₹14,999",
-      features: ["Up to 10 pages", "Custom UI design", "Smooth animations", "Dynamic content", "E-commerce setup", "API integrations", "Performance optimization", "Delivery in 10–20 days", "3 months support"],
+      features: ["Up to 10 pages", "Custom UI design with smooth animations", "Dynamic content & API integrations", "E-commerce setup", "Performance optimization", "Delivery in 10–20 days", "3 months support"],
       gradient: "linear-gradient(135deg, #F3EEFF, #E5D9FF)",
       btnColor: "#7436DF",
       isPopular: false,
@@ -131,7 +131,7 @@ export default function Pricing() {
 
               {/* Top content */}
               <div style={{ flex: 1 }}>
-                <div style={{ marginBottom: "20px" }}>
+                <div style={{ marginBottom: "12px" }}>
                   <h3
                     className="font-[family-name:var(--font-syne)]"
                     style={{ fontWeight: 700, fontSize: "22px", color: "#0A0A0A", marginBottom: "8px" }}
@@ -148,12 +148,12 @@ export default function Pricing() {
 
                 <div
                   className="font-[family-name:var(--font-syne)]"
-                  style={{ fontWeight: 700, fontSize: "clamp(36px, 5vw, 48px)", color: "#0A0A0A", marginBottom: "20px", letterSpacing: "-1px" }}
+                  style={{ fontWeight: 700, fontSize: "clamp(28px, 4vw, 40px)", color: "#0A0A0A", marginBottom: "14px", letterSpacing: "-1px" }}
                 >
                   {plan.price}
                 </div>
 
-                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px 0", display: "flex", flexDirection: "column", gap: "12px" }}>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
                   {plan.features.map((feature, idx) => (
                     <li
                       key={idx}
