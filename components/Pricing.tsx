@@ -6,38 +6,32 @@ export default function Pricing() {
   const plans = [
     {
       id: 1,
-      title: "Landing Page",
-      description: "Perfect for single product or event launches.",
+      title: "Starter Plan",
+      description: "Best for: Individuals, portfolios",
       price: "₹2,999",
-      features: ["Single page website", "Mobile responsive design", "Contact form integration", "Basic SEO setup", "1 month free support"],
-      buttonText: "Get Started",
+      features: ["1 page website", "Mobile responsive", "Clean UI design", "Contact form", "Basic SEO", "Delivery in 2–4 days", "1 month support"],
       gradient: "linear-gradient(135deg, #E6F9F0, #CFF5E1)",
       btnColor: "#16A34A",
-      btnHover: "#15803d",
       isPopular: false,
     },
     {
       id: 2,
-      title: "Standard Website",
-      description: "Ideal for growing businesses needing an online presence.",
-      price: "₹5,999",
-      features: ["Up to 5 pages", "Custom UI/UX design", "CMS integration (CMS/Blog)", "Advanced SEO setup", "3 months free support"],
-      buttonText: "Get Started",
+      title: "Business Plan",
+      description: "Best for: Small businesses",
+      price: "₹7,999",
+      features: ["Up to 5 pages", "Custom design", "Mobile responsive", "CMS setup", "Speed optimization", "SEO setup", "Delivery in 5–10 days", "2 months support"],
       gradient: "linear-gradient(135deg, #EAF2FF, #DCE8FF)",
       btnColor: "#3B82F6",
-      btnHover: "#2563EB",
       isPopular: true,
     },
     {
       id: 3,
-      title: "Premium / AI Website",
-      description: "Advanced solutions with AI integrations and custom web apps.",
-      price: "₹9,999",
-      features: ["Unlimited pages", "AI Chatbot integration", "E-commerce capabilities", "Custom web application logic", "6 months priority support"],
-      buttonText: "Get Started",
+      title: "Pro Plan",
+      description: "Best for: Businesses and scaling brands",
+      price: "Starting ₹14,999",
+      features: ["Up to 10 pages", "Custom UI design", "Smooth animations", "Dynamic content", "E-commerce setup", "API integrations", "Performance optimization", "Delivery in 10–20 days", "3 months support"],
       gradient: "linear-gradient(135deg, #F3EEFF, #E5D9FF)",
       btnColor: "#7436DF",
-      btnHover: "#5B21B6",
       isPopular: false,
     },
   ];
@@ -184,34 +178,6 @@ export default function Pricing() {
                   ))}
                 </ul>
               </div>
-
-              {/* Button */}
-              <button
-                className="font-[family-name:var(--font-inter)]"
-                style={{
-                  width: "100%",
-                  height: "52px",
-                  background: plan.btnColor,
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "14px",
-                  fontSize: "15px",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = plan.btnHover;
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = plan.btnColor;
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
-              >
-                {plan.buttonText}
-              </button>
             </div>
           ))}
         </div>
