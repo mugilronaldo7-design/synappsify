@@ -210,42 +210,32 @@ export default function Process() {
 
         {/* ── INPUT → ENGINE → OUTPUT ── */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(220px, 100%), 1fr))",
-            gap: "16px",
-            marginBottom: "64px",
-            alignItems: "stretch",
-          }}
+          className="flex flex-col md:flex-row md:flex-nowrap md:items-stretch"
+          style={{ gap: "12px", marginBottom: "64px" }}
         >
           {/* INPUT */}
-          <FlowBlock
-            title="Client Input"
-            items={inputItems}
-            bg="#F9FAFB"
-            accent="#7C3AED"
-            borderColor="rgba(124,58,237,0.12)"
-          />
+          <div className="flex-1 min-w-0">
+            <FlowBlock
+              title="Client Input"
+              items={inputItems}
+              bg="#F9FAFB"
+              accent="#7C3AED"
+              borderColor="rgba(124,58,237,0.12)"
+            />
+          </div>
 
-          {/* ARROW — hidden on mobile */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}
-            className="hidden md:flex"
-          >
+          {/* ARROW — desktop/tablet only */}
+          <div className="hidden md:flex items-center justify-center flex-shrink-0" style={{ width: "36px" }}>
             <AnimatedArrow color="#7C3AED" />
           </div>
 
           {/* ENGINE */}
           <div
+            className="flex-1 min-w-0"
             style={{
               background: "linear-gradient(135deg, #1a0a2e 0%, #2d1060 100%)",
               borderRadius: "24px",
-              padding: "clamp(20px, 4vw, 32px)",
+              padding: "clamp(20px, 3vw, 28px)",
               border: "1px solid rgba(124,58,237,0.3)",
               boxShadow: "0 12px 40px rgba(124,58,237,0.2)",
               position: "relative",
@@ -290,27 +280,21 @@ export default function Process() {
             </div>
           </div>
 
-          {/* ARROW — hidden on mobile */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}
-            className="hidden md:flex"
-          >
+          {/* ARROW — desktop/tablet only */}
+          <div className="hidden md:flex items-center justify-center flex-shrink-0" style={{ width: "36px" }}>
             <AnimatedArrow color="#7C3AED" />
           </div>
 
           {/* OUTPUT */}
-          <FlowBlock
-            title="Final Output"
-            items={outputItems}
-            bg="#F9FAFB"
-            accent="#059669"
-            borderColor="rgba(5,150,105,0.12)"
-          />
+          <div className="flex-1 min-w-0">
+            <FlowBlock
+              title="Final Output"
+              items={outputItems}
+              bg="#F9FAFB"
+              accent="#059669"
+              borderColor="rgba(5,150,105,0.12)"
+            />
+          </div>
         </div>
 
         {/* ── DIVIDER ── */}
